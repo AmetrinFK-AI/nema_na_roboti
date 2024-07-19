@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список відсутніх</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body id="list-page">
+    <div class="list-container">
+        <h1>Список відсутніх</h1>
+        <table class="absent-table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Вiдiл</th>
+                    <th>Вiдсутнiй та причина</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for absent in absents %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ absent.name }}</td>
+                    <td>{{ absent.details }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('download_doc') }}" class="btn">Скачати як Word</a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Вийти</a>
+    </div>
+</body>
+</html>

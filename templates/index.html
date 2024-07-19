@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Відсутні</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Відсутність співробітників на робочих місцях Харків</h1>
+        <form action="{{ url_for('submit') }}" method="POST" class="form">
+            <div class="form-group">
+                <label for="name">Відділ:</label>
+                <select id="name" name="name" required>
+                    <option value="Бухгалтерія">Бухгалтерія</option>
+                    <option value="Бюджетний відділ">Бюджетний відділ</option>
+                    <option value="Розвиток">Розвиток</option>
+                    <option value="Тендерний">Тендерний</option>
+                    <option value="Обслуговування">Обслуговування</option>
+                    <option value="Відділ Продажу">Відділ Продажу</option>
+                    <option value="Фарм Отдел">Фарм Отдел</option>
+                    <option value="Маркетинг">Маркетинг</option>
+                    <option value="Зовнішня служба">Зовнішня служба</option>
+                    <option value="Відділ закупівель">Відділ закупівель</option>
+                    <option value="Фінансовий відділ">Фінансовий відділ</option>
+                    <option value="Відділ IT">Відділ IT</option>
+                    <option value="Відділ персоналу">Відділ персоналу</option>
+                    <option value="Відділ контролю якості">Відділ контролю якості</option>
+                    <option value="Відділ економ безпеки">Відділ економ безпеки</option>
+                    <option value="Керівники">Керівники</option>
+                </select>
+            </div>
+            <div id="absent-fields">
+                <div class="form-group" id="field-0">
+                    <label for="absent_person">Кого немає:</label>
+                    <input type="text" id="absent_person" name="absent_person" required>
+                    <label for="reason">Причина:</label>
+                    <input type="text" id="reason" name="reason" required>
+                </div>
+            </div>
+            <button type="button" onclick="addField()">Додати ще одного відсутнього</button>
+            <button type="submit" class="btn">Відправити</button>
+        </form>
+    </div>
+    <script>
+        let fieldCount = 1;
+
+        function addField() {
+            const container = document.getElementById("absent-fields");
+            const div = document.createElement("div");
+            div.classList.add("form-group");
+            div.id = `field-${fieldCount}`;
+            div.innerHTML = `
+                <label for="absent_person">Кого немає:</label>
+                <input type="text" name="absent_person" required>
+                <label for="reason">Причина:</label>
+                <input type="text" name="reason" required>
+                <button type="button" class="remove-btn" onclick="removeField('field-${fieldCount}')">Видалити</button>
+            `;
+            container.appendChild(div);
+            fieldCount++;
+        }
+
+        function removeField(id) {
+            const field = document.getElementById(id);
+            field.remove();
+        }
+    </script>
+</body>
+</html>
