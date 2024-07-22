@@ -3,7 +3,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from apscheduler.schedulers.background import BackgroundScheduler
 from docx import Document
 import io
-from datetime import datetime, timedelta
+from datetime import datetime
 import csv
 import os
 import smtplib
@@ -54,7 +54,7 @@ def save_to_csv(name, details, date):
 
 def load_from_csv():
     if os.path.exists(CSV_FILE):
-        with open(CSV_FILE, mode='r') as file:
+        with open(CSV_FILE, mode='r', encoding='utf-8', errors='replace') as file:
             reader = csv.DictReader(file)
             data = [{'name': row['name'], 'details': row['details'], 'date': row['date']} for row in reader]
             print(f"Loaded data from CSV: {data}")
@@ -66,7 +66,7 @@ def load_from_csv_for_today():
     today = datetime.now().date()
     absents_today = []
     if os.path.exists(CSV_FILE):
-        with open(CSV_FILE, mode='r') as file:
+        with open(CSV_FILE, mode='r', encoding='utf-8', errors='replace') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if 'date' in row:
