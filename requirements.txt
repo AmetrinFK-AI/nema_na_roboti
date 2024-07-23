@@ -4,3 +4,4 @@ werkzeug==2.0.1
 flask_login==0.5.0
 apscheduler==3.9.1
 python-docx==0.8.11
+chardet==5.1.0
