@@ -47,7 +47,8 @@ def initialize_csv():
 
 
 def save_to_csv(name, details, date):
-    with open(CSV_FILE, mode='a', newline='') as file:
+    encoding = detect_encoding(CSV_FILE)
+    with open(CSV_FILE, mode='a', newline='', encoding=encoding) as file:
         writer = csv.writer(file)
         writer.writerow([name, details, date])
     print(f"Saved to CSV: name={name}, details={details}, date={date}")
@@ -79,7 +80,7 @@ def load_from_csv_for_today():
             reader = csv.DictReader(file)
             for row in reader:
                 if 'date' in row:
-                    date = datetime.strptime(row['date'], '%Y-%m-%d %H:%M:%S').date()
+                    date = datetime.strptime(row['date'], '%Y-%м-%d %H:%M:%S').date()
                     if date == today:
                         absents_today.append({'name': row['name'], 'details': row['details'], 'date': row['date']})
     print(f"Absents for today: {absents_today}")
